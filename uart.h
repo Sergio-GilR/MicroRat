@@ -1,11 +1,3 @@
-/* 
- * File:   uart.h
- * Author: sei
- *
- * Created on April 20, 2019, 7:09 PM
- */
-//#include "user.h"
-
 
 #ifndef UART_H
 #define	UART_H
@@ -17,10 +9,10 @@
 extern "C" {
 #endif
 					   
-char Get_usart();     //funci髇 para la recepci髇 de caracteres
-void Put_usart(char val);  //funci髇 para la transmisi髇 de caracteres
-void put_string_usart(char* val);            //funci髇 para la transmisi髇 de cadenas de caracteres
-void Init_usart(uint8_t baudios);  //funci髇 para iniciar el USART AVR as韓crono, 8 bits, 9600 baudios,
+char Get_usart();     //funci贸n para la recepci贸n de caracteres
+void Put_usart(char val);  //funci贸n para la transmisi贸n de caracteres
+void put_string_usart(char* val);            //funci贸n para la transmisi贸n de cadenas de caracteres
+void Init_usart(uint8_t baudios);  //funci贸n para iniciar el USART AVR as铆ncrono, 8 bits, 9600 baudios,
                        //sin bit de paridad, 1 bit de parada
 
 void StartTX();
