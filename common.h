@@ -1,3 +1,9 @@
+/* 
+ * File:   common.h
+ * Author: sei
+ *
+ * Created on 4 de mayo de 2019, 04:57 AM
+ */
 
 #ifndef COMMON_H
 #define	COMMON_H

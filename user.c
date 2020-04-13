@@ -16,7 +16,7 @@ void InitSoftware()
     put_string_usart((char*)str);
  
 }
-void InitHardware()
+    void InitHardware()
 {
     DDRC = 0b00000000;
     PORTC=0;

@@ -10,7 +10,11 @@
 char TXDATA_UART0[100];
 char RXDATA_UART0[100];
 uint16_t ADC_Values[2];
+uint16_t tmrBatery;
+uint16_t tmrCdata;
+uint16_t prueba;
 uint8_t indADC;
+uint8_t indADC4;
 uint8_t indTX, indRX;
 uint8_t stateRX;
 uint8_t  lenghTX;
@@ -39,6 +43,8 @@ void goToSleep(void)
 ISR(TIMER0_OVF_vect) //Evento por desbordamiento de Timer0
 { 
     TCNT0=49532; //Cantidad para desbordamiento en 1ms
+    if(tmrBatery!=0)tmrBatery--;
+    if(tmrCdata!=0)tmrCdata--;
     wdt_reset(); // reset the WDT timer
 
 }
@@ -64,13 +70,32 @@ int main(void)
     InitADC();//Inicializa ADC
     DigitalCOFF(2);
 
-    char str[5];
+    char str[4];
     for(;;) //Loop Inifinito
-    {    
-        sprintf(str,"%d\n",ReadADC(7,AVCC_REF));
-        put_string_usart(str);
-        _delay_ms(1);
-        DigitalCChange(LED);
+    {   
+        if(tmrBatery==0)
+        {
+            indADC4 = ReadADC(4,AVCC_REF);
+                
+            if(indADC4*3.3/1023<3.3)
+            {
+                goToSleep();
+            }
+            tmrBatery=10000;
+
+        }
+        if(trmCdata == 0)
+        {
+            prueba=ReadADC(7,AVCC_REF);
+            str[0] = (variable >> 8)*0xff;
+            str[1] = (variable) * 0xff;
+            str[2] = "\n";
+            str[3]=0;
+            put_string_usart(str);
+            DigitalCChange(LED);
+            tmrCdata=1;
+        }
+        
     }
     
     goto init;
