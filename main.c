@@ -28,7 +28,7 @@ void goToSleep(void)
     set_sleep_mode(SLEEP_MODE_PWR_DOWN);
     cli();                         //stop interrupts to ensure the BOD timed sequence executes as required
     sleep_enable();
-    //disable brown-out detection while sleeping (20-25µA)
+    //disable brown-out detection while sleeping (20-25ÂµA)
     uint8_t mcucr1 = MCUCR | _BV(BODS) | _BV(BODSE);
     uint8_t mcucr2 = mcucr1 & ~_BV(BODSE);
     MCUCR = mcucr1;
@@ -77,7 +77,7 @@ int main(void)
         {
             indADC4 = ReadADC(4,AVCC_REF);
                 
-            if(indADC4*3.3/1023<3.3)
+            if(indADC4*3.3/1023<1.85)
             {
                 goToSleep();
             }
